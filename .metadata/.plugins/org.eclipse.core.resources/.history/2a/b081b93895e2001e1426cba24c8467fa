@@ -1,0 +1,71 @@
+package com.ssafy.fit.model.repository;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.ssafy.fit.model.dto.Review;
+import com.ssafy.fit.model.dto.Video;
+
+//싱글턴으로 관리
+public class ReviewRepositoryImpl implements ReviewRepository {
+	// DB와 연결되어 해당 로직을 호출
+
+	private static ReviewRepository repository = new ReviewRepositoryImpl();
+
+	// 메모리를 DB라고 생각하고 처리하겠다!!!
+	private List<Review> list = new ArrayList<>(); // 리스트 관리
+	private Map<Integer, Review> reviews = new HashMap<>(); // 맵으로 관리
+
+	private ReviewRepositoryImpl() {
+		reviews.put(1, new Review("SSAFY 완벽가이드", "양띵균", "1학기를 잘 이수하는 방법은...."));
+	}
+
+	public static ReviewRepository getInstance() {
+		return repository;
+	}
+
+	public List<Review> selectAll() {
+//		return null;
+
+//		return (List<Board>)boards.values();
+
+		List<Review> tmp = new ArrayList<>();
+		for (int i : reviews.keySet()) {
+			tmp.add(reviews.get(i));
+		}
+
+		return tmp;
+
+	}
+
+	public Review selectOne(int id) {
+		// List 썼었으면 반복문을 돌려야해
+		for (Review b : list) {
+			if (b.getId() == id) {
+				return b;
+			}
+		}
+
+		return reviews.get(id); // ㅡmap을 씀
+	}
+
+	public void insertBoard(Review review) {
+		reviews.put(review.getId(), review); // ID를 Key로 저장
+		list.add(review); // 리스트에 저장할 수도 있음
+	}
+
+	public void updateBoard(Review review) {
+		reviews.put(review.getId(), review);
+	}
+
+	public void deleteBoard(int id) {
+		reviews.remove(id);
+	}
+
+	public void updateViewCnt(int id) {
+		Review b = reviews.get(id);
+		b.setHit(b.getHit() + 1);
+	}
+}

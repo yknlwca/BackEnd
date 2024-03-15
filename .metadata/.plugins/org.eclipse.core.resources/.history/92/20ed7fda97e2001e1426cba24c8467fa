@@ -1,0 +1,59 @@
+package com.ssafy.fit.model.service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.ssafy.fit.model.dto.Review;
+import com.ssafy.fit.model.repository.ReviewRepository;
+import com.ssafy.fit.model.repository.ReviewRepositoryImpl;
+// 싱글턴으로 만들어야 함
+public class ReviewServiceImpl implements ReviewService {
+	private static Map<Integer, Review> reviews = new HashMap<>();
+	
+	private static ReviewService service = new ReviewServiceImpl();
+	//의존성 주입
+	private ReviewRepository repository = ReviewRepositoryImpl.getInstance();
+	private ReviewServiceImpl() {
+		
+	}
+	
+	public static ReviewService getInstance() {
+		return service;
+	}
+	
+	@Override
+	public List<Review> getList() {
+		return repository.selectAll();
+	}
+
+	@Override
+	public Review getBoard(int id) {
+		//조회수도 증가
+		repository.updateViewCnt(id);
+		return repository.selectOne(id);
+	}
+
+	@Override
+	public void writeBoard(Review review) {
+		repository.insertBoard(review);
+	}
+
+	@Override
+	public void modifyBoard(Review review) {
+		repository.updateBoard(review);
+	}
+
+	@Override
+    public void updateReview(Review review) {
+        if (reviews.containsKey(review.getId())) {
+            reviews.put(review.getId(), review);
+        }
+    }
+
+    @Override
+    public void removeReview(int id) {
+        reviews.remove(id);
+    }
+
+}

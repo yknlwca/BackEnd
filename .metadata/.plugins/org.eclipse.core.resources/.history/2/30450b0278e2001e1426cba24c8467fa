@@ -1,0 +1,39 @@
+// JSON 데이터를 가져오는 함수
+async function fetchVideoData(url) {
+	const response = await fetch(url);
+	const data = await response.json();
+	return data;
+}
+
+// 버튼 클릭 이벤트에 따른 동작 설정
+document.querySelectorAll('._button').forEach(button => {
+	button.addEventListener('click', async () => {
+		const part = button.textContent.trim(); // 클릭된 버튼의 텍스트 (상체, 하체, 복부 등)
+		const videoData = await fetchVideoData('data/video.json');
+
+		// 해당하는 part에 맞는 비디오 정보를 필터링
+		const filteredVideos = videoData.filter(video => video.part === part);
+
+		// 필터링된 비디오들을 HTML에 추가
+		const videoContainer = document.querySelector('.getVideo');
+
+		const nooo = document.querySelectorAll('.nooo');
+
+		nooo[0].remove();
+		nooo[1].remove();
+
+		filteredVideos.forEach(video => {
+			// 제목이 25글자 이상이면 뒤에 "..."을 추가하여 표시
+			var title = video.title.length > 25 ? video.title.substring(0, 24) + "..." : video.title;
+
+			const videoElement = document.createElement('div');
+			videoElement.classList.add('nooo');
+			videoElement.innerHTML = `
+                <iframe src="${video.url}" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="_name"><a href="review.html">${title}</a></div>
+                <div class="where"><span>${video.part}</span></div>
+            `;
+			videoContainer.after(videoElement);
+		});
+	});
+});

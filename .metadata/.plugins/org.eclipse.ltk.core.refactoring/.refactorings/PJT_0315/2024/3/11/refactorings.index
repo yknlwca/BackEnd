@@ -1,0 +1,49 @@
+1710470227813	Rename resource 'webjss'
+1710470317253	Delete element
+1710470321292	Delete element
+1710470512560	Rename resource 'webjs'
+1710470522219	Rename resource 'image'
+1710470528145	Rename resource 'webcss'
+1710470656154	Move 2 resources to 'webapp'
+1710473146014	Delete element
+1710473604662	Delete element
+1710473657825	Rename package 'java.com.ssafy.board.controller'
+1710473671643	Rename package 'java.com.ssafy.board.model.dto'
+1710473678596	Rename package 'java.com.ssafy.board.model.repository'
+1710473688189	Rename package 'java.com.ssafy.board.model.service'
+1710474088536	Rename type 'BoardController'
+1710474116586	Rename type 'Board'
+1710474145091	Rename type 'BoardRepository'
+1710474262953	Rename type 'BoardRepositoryImpl'
+1710474286202	Rename type 'BoardService'
+1710474308629	Rename type 'BoardServiceImpl'
+1710478315368	Rename package 'com.ssafy.board.controller'
+1710478327545	Rename package 'com.ssafy.board.model.dto'
+1710478334776	Rename package 'com.ssafy.board.model.service'
+1710478341202	Rename package 'com.ssafy.board.model.repository'
+1710478619069	Delete element
+1710478621261	Delete element
+1710478623319	Delete element
+1710478625733	Delete element
+1710479303824	Delete element
+1710479306568	Delete element
+1710479310119	Delete element
+1710479312691	Delete element
+1710479315721	Delete element
+1710479491594	Delete element
+1710479506292	Delete element
+1710479508108	Delete element
+1710479512353	Delete element
+1710479514097	Delete element
+1710479567771	Delete element
+1710479570641	Delete element
+1710479572533	Delete element
+1710479574419	Delete element
+1710479576348	Delete element
+1710479577692	Delete element
+1710479603643	Delete elements
+1710479606916	Delete element
+1710483000759	Delete element
+1710484393191	Delete element
+1710485658271	Delete element
+1710488009279	Move 2 resources to 'resources'

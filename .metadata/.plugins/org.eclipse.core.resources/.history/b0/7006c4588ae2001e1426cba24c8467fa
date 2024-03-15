@@ -1,0 +1,438 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<%@ page import="java.util.List"%>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSAFIT 운동 영상 리뷰</title>
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+	rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<style>
+.header-nav {
+	display: flex;
+	justify-content: center;
+	height: 70px;
+	background-color: white;
+	color: black;
+	line-height: 70px;
+	border-bottom: 2px solid #ccc;
+	/* 헤더 밑줄 추가 */
+}
+
+.header-nav h2 i {
+	margin-right: 10px;
+	/* 오른쪽 아이콘 간격 */
+	margin-left: 10px;
+	/* 왼쪽 아이콘 간격 */
+}
+
+.youtube-thumbnail {
+	text-align: center;
+	/* 영상 가운데 정렬 */
+	padding: 20px 0;
+	/* 여백 추가 */
+	border-bottom: 2px solid #ccc;
+	/* 영상 밑줄 추가 */
+}
+
+.youtube-thumbnail img {
+	max-width: 50%;
+	height: auto;
+	border-radius: 10px;
+}
+
+.action-buttons {
+	display: flex;
+	justify-content: space-between;
+	/* 컨테이너 내 요소들 사이 간격 최대화 */
+	align-items: center;
+	/* 세로 중앙 정렬 */
+	padding: 20px 0;
+	/* 상하 여백 */
+	border-bottom: 2px solid #ccc;
+	/* 하단 경계선 */
+}
+
+.search-container {
+	display: flex;
+	align-items: center;
+}
+
+.search-container input[type="search"] {
+	border: none;
+	outline: none;
+	background-color: transparent;
+	border-bottom: 1px solid #ccc;
+	/* 검색창 밑줄 */
+	margin-left: 10px;
+	/* 돋보기 아이콘과의 간격 */
+}
+
+.search-container button.search-icon {
+	background: none;
+	border: none;
+	cursor: pointer;
+}
+
+.table-hover tbody tr:hover {
+	background-color: #f5f5f5;
+	/* 호버 시 배경색 변경 */
+	cursor: pointer;
+}
+
+.review-modal-body {
+	max-height: 80%;
+	overflow-y: auto;
+	word-wrap: break-word;
+}
+
+.back-btn {
+	font-size: 13px;
+	padding: 6px 8px;
+}
+
+.modal-title {
+	font-weight: bolder;
+}
+
+.modal-footer {
+	height: 10%;
+}
+</style>
+</head>
+
+<body>
+	<header>
+		<div class="container">
+			<i class="ssafy" role="mainIcon"><a href="index.jsp"> <svg
+						xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+						class="bi bi-amd" viewBox="0 0 16 16">
+          <path
+							d="m.334 0 4.358 4.359h7.15v7.15l4.358 4.358V0zM.2 9.72l4.487-4.488v6.281h6.28L6.48 16H.2z" />
+        </svg>
+			</a> </i>
+			<div class="menu">
+				<a href="index.jsp" class="home"><span>home</span></a> <a
+					href="index.jsp" class="searchGym"><span>헬스장 찾기</span></a> <i
+					class="signUp"><a href="#"> <svg
+							xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+							class="bi bi-person-fill-add" viewBox="0 0 16 16">
+            <path
+								d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+            <path
+								d="M2 13c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4" />
+          </svg>
+				</a> </i> <i class="login"><a href="#"> <svg
+							xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+							class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+								d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z" />
+            <path fill-rule="evenodd"
+								d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
+          </svg>
+				</a> </i>
+			</div>
+		</div>
+	</header>
+
+
+	<div class="youtube-thumbnail">
+		<a href="https://www.youtube.com/watch?v=gMaB-fG4u4g" target="_blank">
+			<img src="https://img.youtube.com/vi/gMaB-fG4u4g/maxresdefault.jpg"
+			alt="YouTube 썸네일">
+		</a>
+	</div>
+
+	<div class="action-buttons">
+		<div class="search-container">
+			<form action="/search" method="GET">
+				<input type="search" name="q" placeholder="검색...">
+				<button type="submit">&#128269;</button>
+			</form>
+		</div>
+		<a class="btn btn-outline-primary" href="#" role="button">글작성</a>
+	</div>
+
+
+	<!-- 글작성 버튼 클릭 시 표시될 모달 -->
+	<div class="modal fade" id="writeReviewModal" tabindex="-1"
+		aria-labelledby="writeReviewModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="writeReviewModalLabel">새 리뷰 작성</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form id="reviewForm">
+						<div class="mb-3">
+							<label for="reviewTitle" class="form-label">제목</label> <input
+								type="text" class="form-control" id="reviewTitle" required>
+						</div>
+						<div class="mb-3">
+							<label for="reviewContent" class="form-label">내용</label>
+							<textarea class="form-control" id="reviewContent" rows="3"
+								required></textarea>
+						</div>
+						<div class="mb-3">
+							<label for="reviewAuthor" class="form-label">작성자</label> <input
+								type="text" class="form-control" id="reviewAuthor" required>
+						</div>
+						<!-- 여기에 필요한 나머지 필드 추가 -->
+						<button type="submit" class="btn btn-primary">저장</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 글 수정 모달 -->
+	<div class="modal fade" id="editModal" tabindex="-1"
+		aria-labelledby="editModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="editModalLabel">글 수정</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<!-- 글 수정을 위한 입력 필드 추가 -->
+					<form id="editForm">
+						<div class="mb-3">
+							<label for="editTitle" class="form-label">제목</label> <input
+								type="text" class="form-control" id="editTitle" required>
+						</div>
+						<div class="mb-3">
+							<label for="editContent" class="form-label">내용</label>
+							<textarea class="form-control" id="editContent" rows="3" required></textarea>
+						</div>
+						<!-- 필요에 따라 추가 입력 필드를 여기에 추가 -->
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" id="saveEditBtn">저장</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="container mt-4">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th scope="col">번호</th>
+					<th scope="col">제목</th>
+					<th scope="col">작성자</th>
+					<th scope="col">조회수</th>
+					<th scope="col">작성시간</th>
+				</tr>
+			</thead>
+			<tbody>
+
+			</tbody>
+		</table>
+	</div>
+
+	<nav aria-label="Page navigation example">
+		<ul class="pagination justify-content-center">
+			<li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+			<li class="page-item"><a class="page-link" href="#">1</a></li>
+
+			<li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+		</ul>
+	</nav>
+
+
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="reviewModal" tabindex="-1"
+		aria-labelledby="reviewModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!--Modal 창 div-->
+				<div class="modal-header">
+					<!--Modal 창 헤더 부분-->
+					<h1 class="modal-title fs-6 review-modal-author"
+						id="reviewModalLabel"></h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body review-modal-body" id="modalContent">
+					<!-- 리뷰 내용 부분. -->
+					<span class="review-modal-title"></span>
+					<hr>
+					<p class="review-modal-content"></p>
+				</div>
+
+				<div class="modal-footer">
+					<!--Modal 창 푸터 부분-->
+
+					<div class="modal-footer">
+
+
+						<!-- 글 삭제 확인 모달 -->
+						<div class="modal fade" id="deleteModal" tabindex="-1"
+							aria-labelledby="deleteModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="deleteModalLabel">글 삭제 확인</h5>
+										<button type="button" class="btn-close"
+											data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<p>정말로 이 글을 삭제하시겠습니까?</p>
+									</div>
+									<div class="modal-footer">
+										<!-- 글 삭제 확인 모달 내의 '삭제' 버튼 -->
+										<button type="button" class="btn btn-danger"
+											id="confirmDeleteBtn">삭제</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<button type="button" class="btn btn-primary" id="editReviewBtn">글
+							수정</button>
+
+						<button type="button" class="btn btn-danger" id="deleteReviewBtn">글
+							삭제</button>
+						<button type="button" class="btn btn-secondary back-btn btn-sm"
+							data-bs-dismiss="modal">목록으로 돌아가기</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      fetch('data/review.json')
+        .then(response => response.json())
+        .then(data => {
+          const reviewsTableBody = document.querySelector('.table.table-hover tbody');
+
+          data.forEach((review, index) => {
+            // 리뷰 정보를 표시할 테이블 행 생성
+            const row = document.createElement('tr');
+            row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${review.title}</td>
+          <td>${review.author}</td>
+          <td>${review.hit}</td>
+          <td>${review.createdAt}</td>
+        `;
+
+            // 클릭 이벤트 리스너 추가
+            row.addEventListener('click', function () {
+              document.querySelector('.review-modal-title').textContent = `제목: ${review.title}`;
+              document.querySelector('.review-modal-content').textContent = review.content;
+              document.querySelector('.review-modal-author').textContent = `작성자: ${review.author}`;
+              // document.getElementById('modalHit').textContent = `조회수: ${review.hit}`;
+              // document.getElementById('modalCreatedAt').textContent = `작성시간: ${review.createdAt}`;
+
+              // 모달 표시
+              var reviewModal = new bootstrap.Modal(document.getElementById('reviewModal'), {});
+              reviewModal.show();
+            });
+            // 생성한 행을 tbody에 추가
+            reviewsTableBody.appendChild(row);
+          });
+        })
+        .catch(error => console.error('리뷰 데이터를 불러오는 중 에러 발생:', error));
+    });
+  </script>
+
+
+	<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // 글작성 버튼 클릭 이벤트
+      document.querySelector('a[role="button"]').addEventListener('click', function () {
+        var writeReviewModal = new bootstrap.Modal(document.getElementById('writeReviewModal'), {});
+        writeReviewModal.show();
+      });
+
+      // 리뷰 작성 폼 제출 이벤트
+      document.getElementById('reviewForm').addEventListener('submit', function (e) {
+        e.preventDefault(); // 폼 기본 제출 막기
+
+        // 폼 데이터 수집
+        const title = document.getElementById('reviewTitle').value;
+        const content = document.getElementById('reviewContent').value;
+        const author = document.getElementById('reviewAuthor').value;
+
+        alert(`제목: ${title}, 내용: ${content}, 작성자: ${author}`); // 임시 확인용
+
+        // 모달 닫기
+        var writeReviewModal = bootstrap.Modal.getInstance(document.getElementById('writeReviewModal'));
+        writeReviewModal.hide();
+      });
+    });
+  </script>
+
+	<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // 리뷰 상세 모달 내의 '글 수정' 버튼 클릭 이벤트 처리
+    document.getElementById('editReviewBtn').addEventListener('click', function () {
+      // 기존 모달(리뷰 상세 모달) 닫기
+      var reviewModalInstance = bootstrap.Modal.getInstance(document.getElementById('reviewModal'));
+      reviewModalInstance.hide();
+  
+      // '글 수정' 모달 열기
+      setTimeout(function() {
+        var editModal = new bootstrap.Modal(document.getElementById('editModal'));
+        editModal.show();
+      }, 500);
+    });
+  
+    // 리뷰 상세 모달 내의 '글 삭제' 버튼 클릭 이벤트 처리
+    document.getElementById('deleteReviewBtn').addEventListener('click', function () {
+      // 기존 모달(리뷰 상세 모달) 닫기
+      var reviewModalInstance = bootstrap.Modal.getInstance(document.getElementById('reviewModal'));
+      reviewModalInstance.hide();
+  
+      // '글 삭제 확인' 모달 열기
+      setTimeout(function() {
+        var deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+        deleteModal.show();
+      }, 500);
+    });
+  
+    // '글 수정' 모달의 '저장' 버튼 클릭 이벤트
+    document.getElementById('saveEditBtn').addEventListener('click', function () {
+      alert('글이 수정되었습니다.'); // 사용자에게 알림
+      var editModal = bootstrap.Modal.getInstance(document.getElementById('editModal'));
+      editModal.hide(); // 모달 닫기
+    });
+  
+    // '글 삭제' 확인 모달의 '삭제' 버튼 클릭 이벤트
+    document.getElementById('confirmDeleteBtn').addEventListener('click', function () {
+      alert('글이 삭제되었습니다.'); // 사용자에게 알림
+      var deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteModal'));
+      deleteModal.hide(); // 모달 닫기
+    });
+  });
+  </script>
+
+
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

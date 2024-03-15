@@ -1,0 +1,50 @@
+package com.ssafy.fit.model.service;
+
+import java.util.List;
+
+import com.ssafy.fit.model.dto.Review;
+import com.ssafy.fit.model.repository.ReviewRepository;
+import com.ssafy.fit.model.repository.ReviewRepositoryImpl;
+// 싱글턴으로 만들어야 함
+public class ReviewServiceImpl implements ReviewService {
+	
+	private static ReviewService service = new ReviewServiceImpl();
+	//의존성 주입
+	private ReviewRepository repository = ReviewRepositoryImpl.getInstance();
+	private ReviewServiceImpl() {
+		
+	}
+	
+	public static ReviewService getInstance() {
+		return service;
+	}
+	
+	@Override
+	public List<Review> getList() {
+		return repository.selectAll();
+	}
+
+	@Override
+	public Review getBoard(int id) {
+		//조회수도 증가
+		repository.updateViewCnt(id);
+		return repository.selectOne(id);
+	}
+
+	@Override
+	public void writeBorad(Review review) {
+		repository.insertBoard(review);
+	}
+
+	@Override
+	public void modifyBoard(Review review) {
+		repository.updateBoard(review);
+	}
+
+	@Override
+	public void removeBoard(int id) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

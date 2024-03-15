@@ -1,0 +1,179 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+	<%@ page import="com.ssafy.fit.model.dto.Review"%>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+	crossorigin="anonymous">
+<link href="<%=request.getContextPath()%>/css/main.css" rel="stylesheet">
+<title>ssafit</title>
+</head>
+
+<body>
+	<header>
+		<div class="container">
+			<i class="ssafy" role="mainIcon"><a href="index.jsp"> <svg
+						xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+						class="bi bi-amd" viewBox="0 0 16 16">
+          <path
+							d="m.334 0 4.358 4.359h7.15v7.15l4.358 4.358V0zM.2 9.72l4.487-4.488v6.281h6.28L6.48 16H.2z" />
+        </svg>
+			</a> </i>
+			<div class="menu">
+				<a href="index.jsp" class="home"><span>home</span></a> <a
+					href="index.jsp" class="searchGym"><span>헬스장 찾기</span></a> <i
+					class="signUp"><a href="#"> <svg
+							xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+							class="bi bi-person-fill-add" viewBox="0 0 16 16">
+            <path
+								d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+            <path
+								d="M2 13c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4" />
+          </svg>
+				</a> </i> <i class="login"><a href="#"> <svg
+							xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+							class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+								d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z" />
+            <path fill-rule="evenodd"
+								d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
+          </svg>
+				</a> </i>
+			</div>
+		</div>
+	</header>
+
+
+
+	<div class="picture">
+		<div id="carouselExampleControls" class="carousel slide"
+			data-bs-ride="carousel">
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<img
+						src="https://www.noblesse.com/shop/data/m/editor_new/2021/09/09/b0342c6ba3cff4bf1.jpg"
+						class="d-block w-100" alt="...">
+				</div>
+				<div class="carousel-item">
+					<img src="../img/11.png" class="d-block w-100" alt="...">
+				</div>
+				<div class="carousel-item">
+					<img src="../img/22.png" class="d-block w-100" alt="...">
+				</div>
+			</div>
+			<button class="carousel-control-prev" type="button"
+				data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			</button>
+			<button class="carousel-control-next" type="button"
+				data-bs-target="#carouselExampleControls" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			</button>
+		</div>
+	</div>
+
+	<main>
+		<div class="container">
+			<div class="searchDiv">
+				<div class="_Box">
+					<i class="searchIcon"> <svg xmlns="http://www.w3.org/2000/svg"
+							fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+            <path
+								d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+          </svg>
+					</i>
+					<form method="get">
+						<input type="text" placeholder="운동 제목 검색">
+
+					</form>
+				</div>
+
+			</div>
+			<div class="mostSee">
+				<h1>최근 가장 많이 본 영상</h1>
+				<div class="_video">
+					<div id="dataDisplay" class="goLeft arrow goLeftArrow">&lt;</div>
+
+
+					<div id="goRightArrow" class="goRight arrow">&gt;</div>
+				</div>
+			</div>
+
+			<div class="selectActive">
+				<h1>운동 부위 선택</h1>
+				<nav class="_click">
+					<button class="_button body">전신</button>
+					<button class="_button top">상체</button>
+					<button class="_button down">하체</button>
+					<button class="_button middle">복부</button>
+				</nav>
+
+				<div class="body body_video _video">
+					<div class="goLeft arrow getVideo">&lt;</div>
+					<div id="dontBug1">
+						<div class="nooo">
+							<iframe src="https://www.youtube.com/embed/swRNeYw1JkY"
+								allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+								allowfullscreen=""></iframe>
+							<div class="_name">
+								<a href="review.jsp">하루 15분! 전신 칼로리 불태우는 다이어트...</a>
+							</div>
+							<div class="where">
+								<span>전신</span>
+							</div>
+						</div>
+					</div>
+					<div id="dontBug2">
+						<div class="nooo">
+							<iframe src="https://www.youtube.com/embed/gMaB-fG4u4g"
+								allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+								allowfullscreen=""></iframe>
+							<div class="_name">
+								<a href="review.jsp">전신 다이어트 최고의 운동 [칼소폭 찐 핵핵...</a>
+							</div>
+							<div class="where">
+								<span>전신</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="goRight arrow">&gt;</div>
+
+
+				</div>
+
+			</div>
+		</div>
+
+	</main>
+
+	<footer>
+		<div class="container">
+			<ul class="aboutSite">
+				<li><a href="">개인정보처리방침</a></li>
+				<li><a href="">이용약관</a></li>
+				<li><a href="">오시는길</a></li>
+				<li>&copy; SSAFY Corp.</li>
+			</ul>
+		</div>
+	</footer>
+	<script src="<%=request.getContextPath()%>/js/buttonVideo.js"></script>
+	<script src="<%=request.getContextPath()%>/js/clickArrow.js"></script>
+	<script src="<%=request.getContextPath()%>/js/getVideo.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>

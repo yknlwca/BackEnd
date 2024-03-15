@@ -1,0 +1,22 @@
+package com.ssafy.board.model.service;
+
+import java.util.List;
+
+import com.ssafy.board.model.dto.Review;
+
+public interface ReviewService {
+	// 전체글 가져와
+	public abstract List<Review> getList();
+
+	public abstract Review getBoard(int id);
+
+	// 게시글 작성
+	public abstract void writeBoard(Review board);
+
+	// 게시글 수정
+	public abstract void modifyBoard(Review board);
+
+	// 게시글 삭제
+	public abstract void removeBoard(int id);
+
+}

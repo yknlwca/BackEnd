@@ -1,0 +1,25 @@
+package com.ssafy.fit.model.service;
+
+import java.util.List;
+
+import com.ssafy.fit.model.dto.Review;
+import com.ssafy.fit.model.dto.Video;
+
+public interface ReviewService {
+	// 전체글 가져와
+	public abstract List<Review> getList();
+
+	// 게시글 하나가져와
+	public abstract Review getBoard(int id);
+
+	// 게시글 작성
+	public abstract void writeBoard(Review review);
+
+	// 게시글 수정
+	public abstract void modifyBoard(Review review);
+
+	// 게시글 삭제
+	public abstract void removeReview(int id);
+
+	void updateReview(Review review);
+}

@@ -1,0 +1,69 @@
+package com.ssafy.board.model.repository;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.ssafy.board.model.dto.Review;
+
+public class ReviewRepositoryImpl implements ReviewRepository {
+	private static ReviewRepository repository = new ReviewRepositoryImpl();
+
+	private List<Review> list = new ArrayList<>();
+	private Map<Integer, Review> reviews = new HashMap<>();
+
+	private ReviewRepositoryImpl() {
+
+	}
+
+	public static ReviewRepository getInstance() {
+		return repository;
+	}
+
+	@Override
+	public List<Review> selectAll() {
+//		return list; 
+//		return (List<Board>)boards.values();
+
+		List<Review> tmp = new ArrayList<>();
+		for (int i : reviews.keySet()) {
+			tmp.add(reviews.get(i));
+		}
+		return tmp;
+	}
+
+	@Override
+	public Review selectOne(int id) {
+
+//		for(Board b : list) {
+//			if(b.getId() == id)
+//				return b;
+//		}
+
+		return reviews.get(id);
+	}
+
+	@Override
+	public void insertBoard(Review review) {
+		reviews.put(review.getId(), review);
+		list.add(review);
+	}
+
+	@Override
+	public void updateBoard(Review review) {
+		reviews.put(review.getId(), review);
+	}
+
+	@Override
+	public void deleteBoard(int id) {
+		reviews.remove(id);
+	}
+
+	@Override
+	public void updateViewCnt(int id) {
+		Review b = reviews.get(id);
+		b.setViewCnt(b.getViewCnt() + 1);
+	}
+
+}

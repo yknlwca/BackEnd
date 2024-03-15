@@ -1,0 +1,130 @@
+package com.ssafy.fit.model.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import com.ssafy.fit.model.dto.Review;
+import com.ssafy.fit.model.service.ReviewService;
+import com.ssafy.fit.model.service.ReviewServiceImpl;
+
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+@WebServlet("/")
+public class MainController extends HttpServlet {
+
+	private static final long serialVersionUID = 1L;
+	// 의존성 주입 (필드주입)
+	private ReviewService service = ReviewServiceImpl.getInstance();
+
+	@Override
+	protected void service(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// 모든 board요청은 해당 서블릿으로 오게 되어 있음
+		String action = request.getParameter("action");
+
+		switch (action) {
+
+		case "writeform":
+			doWriteForm(request, response);
+			break;
+
+		case "write":
+			doWrite(request, response);
+			break;
+
+		case "list":
+			doList(request, response);
+			break;
+
+		case "detail":
+			doDetail(request, response);
+			break;
+
+		case "delete":
+			doRemove(request, response);
+			break;
+
+		case "updateform":
+			doUpdateForm(request, response);
+			break;
+
+		case "update":
+			doUpdate(request, response);
+			break;
+		}
+
+	}
+
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    // 리뷰 목록 조회 로직
+	    List<Review> reviews = service.getList();
+	    request.setAttribute("reviews", reviews); 
+
+	    RequestDispatcher dispatcher = request.getRequestDispatcher("/review.jsp");
+	    dispatcher.forward(request, response);
+	}
+
+
+	private void doUpdate(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		Review review = service.getBoard(Integer.parseInt(request.getParameter("id")));
+		review.setTitle(request.getParameter("title"));
+		review.setContent(request.getParameter("content"));
+
+		service.modifyBoard(review);
+		response.sendRedirect("board?action=list");
+	}
+
+	private void doUpdateForm(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		Review review = service.getBoard(id);
+		request.setAttribute("board", review);
+		request.getRequestDispatcher("/board/updateform.jsp").forward(request, response);
+	}
+
+	private void doRemove(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		service.removeBoard(id);
+		response.sendRedirect("board?action=list");
+	}
+
+	private void doDetail(HttpServletRequest request, HttpServletResponse response)
+	        throws ServletException, IOException {
+	    int id = Integer.parseInt(request.getParameter("id")); 
+	    Review review = service.getBoard(id); 
+	    request.setAttribute("review", review); 
+	    request.getRequestDispatcher("/detail.jsp").forward(request, response); 
+	}
+
+
+	private void doList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("list", service.getList());
+		request.getRequestDispatcher("/board/list.jsp").forward(request, response);
+	}
+
+	private void doWrite(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	    String title = request.getParameter("title");
+	    String author = request.getParameter("writer");
+	    String content = request.getParameter("content");
+
+	    Review review = new Review(title, author, content); // 사용자 입력을 바탕으로 리뷰 객체 생성
+	    service.writeBoard(review); // 생성된 리뷰 객체를 저장
+
+	    response.sendRedirect("review?action=list"); // 리뷰 목록 페이지로 리다이렉트
+	}
+
+
+	private void doWriteForm(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.getRequestDispatcher("/board/writeform.jsp").forward(request, response);
+	}
+
+}

@@ -1,0 +1,39 @@
+package com.ssafy.fit.model.dao;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.ssafy.fit.model.dto.Video;
+
+//싱글턴으로 관리
+public class MainDaoImpl implements MainDao {
+
+
+	private static MainDao repository = new MainDaoImpl();
+
+
+	private List<Video> list = new ArrayList<>(); // 리스트 관리
+	private Map<Integer, Video> videos = new HashMap<>(); // 맵으로 관리
+
+	private MainDaoImpl() {
+
+	}
+
+	public static MainDao getInstance() {
+		return repository;
+	}
+
+	@Override
+	public List<Video> selectinterestViewFitVideo() {
+
+		return null;
+	}
+
+	@Override
+	public List<Video> selectPartFitVideo() {
+
+		return null;
+	}
+}

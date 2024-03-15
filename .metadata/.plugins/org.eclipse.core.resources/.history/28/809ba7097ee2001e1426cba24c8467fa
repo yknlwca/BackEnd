@@ -1,0 +1,20 @@
+package com.ssafy.board.model.repository;
+
+import java.util.List;
+
+import com.ssafy.board.model.dto.Review;
+
+public interface BoardRepository {
+	public abstract List<Review> selectAll();
+
+	public abstract Review selectOne(int id);
+
+	public abstract void insertBoard(Review board);
+
+	public abstract void updateBoard(Review board);
+
+	public abstract void deleteBoard(int id);
+
+	public abstract void updateViewCnt(int id);
+
+}

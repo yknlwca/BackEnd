@@ -1,0 +1,211 @@
+@charset "UTF-8";
+@font-face {
+  font-family: "TheJamsil5Bold";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "NanumSquareNeo-Variable";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+:root {
+  --bg-color: #fff;
+  --font-color: #312f2f;
+  --Main-table-color: #f5eeee;
+  --bar-color: #bdbfc5;
+  --white-font-color: #f5eeee;
+  --hover-color: #4c81c7;
+  --header-font-size: 20px;
+  --button-color:#683469;
+}
+
+.darkmode {
+  --bg-color: #2e2e2e;
+  --font-color: #fff;
+  --Main-table-color: #000000;
+  --bar-color: #6d6565;
+  --white-font-color: #ecdddd;
+  --hover-color: #cabbbb;
+}
+
+* {
+  margin: 0;
+  font-family: "TheJamsil5Bold";
+}
+
+header {
+  width: 100vw;
+}
+header .container {
+  margin: 20px auto;
+}
+header .container a {
+  text-decoration: none;
+  color: var(--font-color);
+}
+header .container a:hover {
+  color: var(--hover-color);
+}
+header .container svg { /* 헤더의 백터 아이콘 크기 조절 */
+  width: 40px;
+  height: 40px;
+}
+header .container .ssafy a:hover {
+  color: var(--font-color);
+}
+header .container .menu {
+  display: inline-block;
+  float: right;
+}
+header .container .menu .home { /* home 버튼*/
+  font-size: var(--header-font-size);
+}
+header .container .menu a {
+  margin: 0 10px;
+}
+
+.picture {
+  display: block;
+  width: 100vw;
+  height: 300px;
+  background-color: #000000;
+  overflow: hidden;
+}
+main .container {
+  min-width: 800px;
+  width: 80vw;
+  max-width: 1200px;
+}
+main .container .searchDiv {
+  padding: 20px;
+  box-shadow: 0px 5px 10px var(--bar-color);
+  margin: 20px 0;
+}
+main .container .searchDiv ._Box {
+  border-bottom: 1px var(--bar-color) solid;
+  display: flex;
+}
+main .container .searchDiv ._Box .searchIcon svg {
+  width: 20px;
+  height: 20px;
+}
+main .container .searchDiv ._Box form input {
+  border: none;
+  padding-left: 10px;
+  width: 500px;
+}
+main .container .searchDiv ._Box form input:focus {
+  outline: none;
+}
+main .container .mostSee ._video {
+  height: 300px;
+  box-shadow: 0px 10px 10px var(--bar-color);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+main .container .mostSee ._video .silde {
+  margin: 0 10px;
+}
+main .container .mostSee ._video .silde iframe {
+  width: 340px;
+  height: 200px;
+}
+main .container .mostSee ._video .silde ._name a {
+  text-decoration: none;
+  color: var(--font-color);
+}
+main .container .mostSee ._video .silde ._name a:hover {
+  color: var(--);
+}
+main .container .mostSee ._video .silde .where span {
+  padding: 5px 10px;
+  background-color: var(--button-color);
+  color: var(--white-font-color);
+  border-radius: 20px;
+  font-family: "NanumSquareNeo-Variable";
+}
+main .container .mostSee ._video .arrow {
+  color: var(--bar-color);
+  padding: 0 15px;
+  cursor: pointer;
+}
+main .container .selectActive {
+  margin-top: 30px;
+}
+main .container .selectActive h1 {
+  font-size: 30px;
+}
+main .container .selectActive nav ._button {
+  border: none;
+  padding: 10px 20px;
+  margin: 0 10px;
+  border-radius: 20px;
+  box-shadow: 0px 5px 10px var(--bar-color);
+}
+main .container .selectActive nav ._button:hover {
+  background-color: var(--font-color);
+  color: var(--white-font-color);
+}
+main .container .selectActive nav .active { /* JS로 button 클릭 시 active class 추가하여 색상변경 */
+  background-color: var(--button-color);
+}
+main .container .selectActive ._video {
+  height: 300px;
+  box-shadow: 0px 10px 10px var(--bar-color);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+main .container .selectActive ._video .nooo {
+  margin: 0 10px;
+}
+main .container .selectActive ._video .nooo iframe {
+  width: 340px;
+  height: 200px;
+}
+main .container .selectActive ._video .nooo ._name a {
+  text-decoration: none;
+  color: var(--font-color);
+}
+main .container .selectActive ._video .nooo ._name a:hover {
+  color: var(--);
+}
+main .container .selectActive ._video .nooo .where span {
+  padding: 5px 10px;
+  background-color: var(--button-color);
+  color: var(--white-font-color);
+  border-radius: 20px;
+  font-family: "NanumSquareNeo-Variable";
+}
+main .container .selectActive ._video .arrow {
+  color: var(--bar-color);
+  padding: 0 15px;
+  cursor: pointer;
+}/*# sourceMappingURL=main.css.map */
+
+footer {
+  display: absolute;
+  padding:100px;
+  margin:10px;
+  bottom:0;
+  
+}
+footer > .container > .aboutSite{
+  text-align: center;
+}
+footer > .container > .aboutSite > li{
+  list-style-type: none;
+  display: inline-block;
+  margin:0 10px;
+}
+
+footer > .container > .aboutSite > li > a{
+  text-decoration: none;
+  color:black;
+}

@@ -1,0 +1,39 @@
+var delay = 300;
+var timer = null;
+
+fetch('../../2_Web(Front)/data/video.json')
+	.then(response => response.json())
+	.then(data => {
+		// JSON 데이터를 받아와서 동적으로 HTML에 추가
+		var videosList = document.getElementById('dataDisplay');
+
+		// 현재 창의 너비를 확인
+		var windowWidth = window.innerWidth;
+
+		// 보여줄 데이터 개수 설정
+		var numVideosToShow = 3;
+		if (windowWidth < 500) {
+			numVideosToShow = 1;
+		} else if (windowWidth < 1200) {
+			numVideosToShow = 2;
+		} else {
+			numVideosToShow = 3;
+		}
+
+		// numVideosToShow 개수만큼 데이터를 처리
+		for (let i = 0; i < numVideosToShow && i < data.length; i++) {
+			var video = data[i];
+			// 제목이 25글자 이상이면 뒤에 "..."을 추가하여 표시
+			var title = video.title.length > 25 ? video.title.substring(0, 24) + "..." : video.title;
+			var videoElement = document.createElement('div');
+			videoElement.innerHTML = `
+                    <div class="silde">
+                      <iframe src="${video.url}"allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                      <div class="_name"><a href="review.html">${title}</a></div>
+                      <div class="where"><span>${video.part}</span></div>
+                    </div>
+                `;
+			videosList.after(videoElement);
+		}
+	})
+	.catch(error => console.error('데이터를 불러오는 중 에러 발생:', error));
