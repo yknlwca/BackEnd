@@ -132,3 +132,82 @@
     - 산술 연산, 조건 연산, 논리 연산, 관계 연산
 
 ## JSTL (JSP Standard Tag Library)
+
+# DB
+### 데이터베이스(Database)
+
+- 여러 사람이 공유하고 사용할 목적으로 통합 관리되는 정보의 집합
+- 논리적으로 연관된 하나 이상의 자료의 모음
+- 데이터들을 고도로 구조화 함으로써 검색과 갱신의 효율화를 꾀한 것
+- 몇 개의 자료 파일을 조직적으로 통합하여 중복을 없애고 자료를 구조화 시킨 자료의 집합
+
+### 통합된 데이터 (Integrated Data)
+
+- 각자 사용하던 데이터를 모아서 중복을 최소화 하고 데이터 불일치 제거
+
+### 저장된 데이터 (Stored Data)
+
+- 문서 형태로 보관되는 것이 아니라 저장장치에 저장됨
+
+### 운영데이터 (Operational Data)
+
+- 조직의 목적을 위해서 사용되는 데이터
+
+### 공용데이터 (Shared Data)
+
+- 여러 사람이 각각 다른 목적의 업무를 위해 공통으로 사용되는 데이터
+
+# 관계형 데이터 베이스 (Relational DB)
+
+- 테이블(Table) 기반의 Database
+    - 실제 데이터가 저장되는 곳
+    - 행과 열의 2차원 구조를 가진 저장 장소
+- 하나의 데이터는 여러 속성(Attribute)을 가짐
+- 데이터 중복 최소화
+- 테이블 간의 관계를 이용 → 필요한 데이터 검색
+
+### 스키마(Schema)
+
+- 자료 구조, 표현 방법, 관계 등 전반적인 명세를 기술
+    
+    
+    | 속성 | 속성 설명 | … |
+    | --- | --- | --- |
+    | Id | 아이디 | … |
+    | Name | 이름 | … |
+    | Password | 비밀번호 | … |
+
+## 관계형 데이터 베이스 테이블 구조
+
+- 열 (Column) 또는 속성 (Attribute) : 고유한 데이터 형식 (자료형) 지정
+- 행 (Row) 또는 레코드 (Record) : 실제 데이터 저장되는 형태
+- 기본 키 (Primary key) : 각 행의 고유 값
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/acb4bbd9-5e7a-4411-b76d-2d71e461f3cd/5cd26959-85c4-49f2-88cd-fb5a0cd32529/Untitled.png)
+    
+
+# SQL (Structed Query Language)
+
+- 관계형 데이터 베이스에서 데이터 조작과 데이터 정의를 위해 사용하는 언어
+    - 데이터 조회
+    - 데이터 삽입, 삭제, 수정
+    - DB Object 생성 및 변경, 삭제
+    - DB 사용자 생성 및 삭제, 권한 제어
+- 표준 SQL은 모든 DBMS에서 사용 가능
+
+## DML (Data Manipulation Language) 데이터 조작 언어
+
+- 데이터 조작 조회 사용
+- CRUD ( Create, Read, Update, Delete)
+
+## DDL (Data Definition Language) 데이터 정의 언어
+
+- DB 객체 (table, view, user, index ….)의 구조를 정의
+
+## DCL (Data Control Language) 데이터 제어 언어
+
+- Database, Table 접근 권한이나 CRUD권한 정의
+
+## TCL (Transaction Control Language) 트랙잭션 제어 언어
+
+- 트랜잭션 단위로 실행한 명령문 적용 or 취소
